@@ -15,8 +15,7 @@ scale = Vector2(53.47, 1.82)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0.205723, 161.297)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_q7bii")
 
-[node name="BallManager" type="Node" parent="."]
+[node name="BallManager" type="Node2D" parent="."]
 script = ExtResource("1_s63q8")

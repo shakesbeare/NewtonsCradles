@@ -1,3 +1,29 @@
-[gd_scene format=3 uid="uid://dxla34mkyl0lv"]
+[gd_scene load_steps=5 format=3 uid="uid://dxla34mkyl0lv"]
+
+[ext_resource type="Script" path="res://ball_rotator.gd" id="1_avpws"]
+[ext_resource type="Texture2D" uid="uid://cm32hi5v861wb" path="res://rope.png" id="2_s6y51"]
+[ext_resource type="Script" path="res://rope.gd" id="3_28mj5"]
+[ext_resource type="Texture2D" uid="uid://c2cu0uwv2hbfq" path="res://ball.png" id="3_c3e6g"]
 
 [node name="newton_ball" type="Node2D"]
+
+[node name="top connector" type="Node2D" parent="." node_paths=PackedStringArray("ball")]
+script = ExtResource("1_avpws")
+ball = NodePath("rope/bottom connector/ball")
+
+[node name="rope" type="Sprite2D" parent="top connector" node_paths=PackedStringArray("ball", "bottom_connector")]
+position = Vector2(0, 32)
+texture = ExtResource("2_s6y51")
+script = ExtResource("3_28mj5")
+length = 1.0
+ball = NodePath("bottom connector/ball")
+bottom_connector = NodePath("bottom connector")
+
+[node name="bottom connector" type="Node2D" parent="top connector/rope"]
+position = Vector2(0, 32)
+
+[node name="ball" type="Sprite2D" parent="top connector/rope/bottom connector"]
+position = Vector2(0, 32)
+texture = ExtResource("3_c3e6g")
+
+[connection signal="rope_length" from="top connector/rope" to="top connector" method="_on_rope_rope_length"]
