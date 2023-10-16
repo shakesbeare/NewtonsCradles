@@ -25,6 +25,7 @@ func _ready():
 func collision():
     # 0 1 . 1 2 . 2 3 . 3 4
     # 1 0 . 2 1 . 3 2 . 4 3
+    # async???
 
     for i in range(number_balls -1):
         var apparatus1 = newton_balls[i]
