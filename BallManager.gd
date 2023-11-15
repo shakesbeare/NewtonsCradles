@@ -40,21 +40,25 @@ func collision():
 
         if distance <= 64:
             # set the distance = 64 and update the rotations
-            var angle = (top_connector1.rotation + top_connector2.rotation) / 2
-            top_connector1.rotation = angle
-            top_connector2.rotation = angle
+            var sign1 = top_connector1.rotation/ abs(top_connector1.rotation)
+            var sign2 = top_connector2.rotation / abs(top_connector2.rotation)
+            if sign1 < 0:
+                top_connector1.rotation = top_connector2.rotation
+            else:
+                top_connector2.rotation = top_connector1.rotation
 
             var temp = top_connector1.angular_velocity
             top_connector1.angular_velocity = top_connector2.angular_velocity
             top_connector2.angular_velocity = temp
 
-            if top_connector1.angular_velocity < 0.0001:
+            if abs(top_connector1.angular_velocity) < 0.001:
                 top_connector1.angular_velocity = 0
-            elif top_connector2.angular_velocity < 0.0001:
+
+            if abs(top_connector2.angular_velocity) < 0.001:
                 top_connector2.angular_velocity = 0
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
     # loop through all the newton_balls
     # if any positions overlap (distance from center to center >= 64)
     # then, collide
