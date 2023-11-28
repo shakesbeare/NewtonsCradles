@@ -9,14 +9,13 @@ const sprite_height: float = 64
 @export var ball: Node2D
 @export var bottom_connector: Node2D
 
+
 func _ready():
-    self.scale = Vector2(1, length)
-    ball.scale = Vector2(1, 1 / length)
+	self.scale = Vector2(1, length)
+	ball.scale = Vector2(1, 1 / length)
 
-    self.position.y = sprite_height * length / 2
-    bottom_connector.position.y = sprite_height * length / 2
-    ball.position.y = 32
+	self.position.y = sprite_height * length / 2
+	bottom_connector.position.y = sprite_height * length / 2
+	ball.position.y = 32
 
-    rope_length.emit(length)
-
-
+	rope_length.emit(length)
