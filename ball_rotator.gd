@@ -17,7 +17,7 @@ var angular_momentum: float
 var period: float
 
 var R: float = 1:
-    set(value):
+    set(_v):
         period = 2 * PI * sqrt(R / Physics.g)
 
 var I = a * M * R ** 2
@@ -33,6 +33,7 @@ func _init():
 func _ready():
     var bm = get_tree().get_root().get_node("/root/Node2D/BallManager")
     bm.start_angle.connect(_on_set_angle)
+    bm.reset.connect(_on_reset)
 
     period = 2 * PI * sqrt(R / Physics.g)
 
@@ -55,4 +56,9 @@ func _on_set_angle(i: int, angle: float):
 
 func _on_rope_rope_length(r: float):
     R = r
+
+func _on_reset():
+    self.rotation = 0
+    self.angular_velocity = 0
+    self.angular_momentum = 0
 
