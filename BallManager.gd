@@ -36,6 +36,7 @@ func collision():
 		var apparatus2 = newton_balls[i + 1]
 		var top_connector2 = apparatus2.get_node("top connector")
 
+		# find the position of the balls
 		var ball1_pos = (
 			Vector2(
 				96 * sin(-top_connector.rotation),
@@ -51,10 +52,11 @@ func collision():
 			+ apparatus2.position
 		)
 
+		# check if the balls are on top of each other
 		var distance = (ball2_pos - ball1_pos).length()
 
 		if distance <= 64:
-			# set the distance = 64 and update the rotations
+			# make sure the balls are not overlapping
 			var sign1 = top_connector.rotation / abs(top_connector.rotation)
 			var sign2 = top_connector2.rotation / abs(top_connector2.rotation)
 			if sign1 < 0:
@@ -62,10 +64,12 @@ func collision():
 			else:
 				top_connector2.rotation = top_connector.rotation
 
+			# update the angular velocities
 			var temp = top_connector.angular_velocity
 			top_connector.angular_velocity = top_connector2.angular_velocity
 			top_connector2.angular_velocity = temp
 
+			# clamp to account for floating point errors
 			if abs(top_connector.angular_velocity) < 0.001:
 				top_connector.angular_velocity = 0
 
